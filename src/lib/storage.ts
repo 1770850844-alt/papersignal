@@ -4,7 +4,7 @@ import { isDesktop } from './desktop';
 const KEY = 'papersignal-web-state';
 
 interface LocalState { drafts: Draft[]; brand: Brand; }
-const defaultBrand: Brand = { name: 'PaperSignal', accent: '#FF6840', font: 'serif' };
+const defaultBrand: Brand = { name: 'LayoutGo', accent: '#3152A2', font: 'serif' };
 
 function readWeb(): LocalState {
   try {
