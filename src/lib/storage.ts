@@ -1,9 +1,9 @@
-import type { AiServiceState, Brand, Draft } from './types';
+import type { AiServiceState, Brand, CustomTemplate, Draft, XhsDraft } from './types';
 import { isDesktop } from './desktop';
 
 const KEY = 'papersignal-web-state';
 
-interface LocalState { drafts: Draft[]; brand: Brand; }
+interface LocalState { drafts: Draft[]; xhsDrafts: XhsDraft[]; brand: Brand; customTemplates: CustomTemplate[]; }
 const defaultBrand: Brand = { name: 'LayoutGo', accent: '#3152A2', font: 'serif' };
 const aiServicesKey = 'layoutgo-ai-services';
 const legacyAiConfigKey = 'layoutgo-ai-config';
@@ -11,8 +11,10 @@ const legacyAiConfigKey = 'layoutgo-ai-config';
 function readWeb(): LocalState {
   try {
     const raw = localStorage.getItem(KEY);
-    return raw ? JSON.parse(raw) as LocalState : { drafts: [], brand: defaultBrand };
-  } catch { return { drafts: [], brand: defaultBrand }; }
+    if (!raw) return { drafts: [], xhsDrafts: [], brand: defaultBrand, customTemplates: [] };
+    const stored = JSON.parse(raw) as Partial<LocalState>;
+    return { drafts: stored.drafts ?? [], xhsDrafts: stored.xhsDrafts ?? [], brand: stored.brand ?? defaultBrand, customTemplates: stored.customTemplates ?? [] };
+  } catch { return { drafts: [], xhsDrafts: [], brand: defaultBrand, customTemplates: [] }; }
 }
 
 function writeWeb(next: LocalState) { localStorage.setItem(KEY, JSON.stringify(next)); }
@@ -64,6 +66,36 @@ export async function deleteDraft(id: string): Promise<void> {
   await database.execute('DELETE FROM drafts WHERE id = ?', [id]);
 }
 
+export async function loadXhsDrafts(): Promise<XhsDraft[]> {
+  if (!isDesktop()) return readWeb().xhsDrafts;
+  const database = await db();
+  const rows = await database.select<Array<{ value: string }>>('SELECT value FROM settings WHERE key = ?', ['xhs_drafts']);
+  return rows[0] ? JSON.parse(rows[0].value) as XhsDraft[] : [];
+}
+
+export async function saveXhsDraft(draft: XhsDraft): Promise<void> {
+  if (!isDesktop()) {
+    const state = readWeb();
+    writeWeb({ ...state, xhsDrafts: [draft, ...state.xhsDrafts.filter((item) => item.id !== draft.id)] });
+    return;
+  }
+  const drafts = await loadXhsDrafts();
+  const next = [draft, ...drafts.filter((item) => item.id !== draft.id)];
+  const database = await db();
+  await database.execute('INSERT INTO settings (key, value) VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value = excluded.value', ['xhs_drafts', JSON.stringify(next)]);
+}
+
+export async function deleteXhsDraft(id: string): Promise<void> {
+  if (!isDesktop()) {
+    const state = readWeb();
+    writeWeb({ ...state, xhsDrafts: state.xhsDrafts.filter((item) => item.id !== id) });
+    return;
+  }
+  const drafts = await loadXhsDrafts();
+  const database = await db();
+  await database.execute('INSERT INTO settings (key, value) VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value = excluded.value', ['xhs_drafts', JSON.stringify(drafts.filter((item) => item.id !== id))]);
+}
+
 export async function loadBrand(): Promise<Brand> {
   if (!isDesktop()) return readWeb().brand;
   const database = await db();
@@ -91,4 +123,17 @@ export async function saveAiServices(state: AiServiceState): Promise<void> {
   if (!isDesktop()) { writeAiServices(state); return; }
   const database = await db();
   await database.execute('INSERT INTO settings (key, value) VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value = excluded.value', ['ai_services', JSON.stringify(state)]);
+}
+
+export async function loadCustomTemplates(): Promise<CustomTemplate[]> {
+  if (!isDesktop()) return readWeb().customTemplates;
+  const database = await db();
+  const rows = await database.select<Array<{ value: string }>>('SELECT value FROM settings WHERE key = ?', ['custom_templates']);
+  return rows[0] ? JSON.parse(rows[0].value) as CustomTemplate[] : [];
+}
+
+export async function saveCustomTemplates(templates: CustomTemplate[]): Promise<void> {
+  if (!isDesktop()) { const state = readWeb(); writeWeb({ ...state, customTemplates: templates }); return; }
+  const database = await db();
+  await database.execute('INSERT INTO settings (key, value) VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value = excluded.value', ['custom_templates', JSON.stringify(templates)]);
 }

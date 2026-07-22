@@ -17,8 +17,8 @@
 
 直接下载安装包：
 
-- [下载 macOS（Apple Silicon / M 系列）版 LayoutGo 0.1.5 `.dmg`](https://github.com/1770850844-alt/layoutgo/releases/download/app-v0.1.5/LayoutGo_0.1.5_aarch64.dmg)
-- [下载 Windows 64 位版 LayoutGo 0.1.5 `.exe`](https://github.com/1770850844-alt/layoutgo/releases/download/app-v0.1.5/LayoutGo_0.1.5_x64-setup.exe)
+- [下载 macOS（Apple Silicon / M 系列）版 LayoutGo 0.1.6 `.dmg`](https://github.com/1770850844-alt/layoutgo/releases/download/app-v0.1.6/LayoutGo_0.1.6_aarch64.dmg)
+- [下载 Windows 64 位版 LayoutGo 0.1.6 `.exe`](https://github.com/1770850844-alt/layoutgo/releases/download/app-v0.1.6/LayoutGo_0.1.6_x64-setup.exe)
 - [查看全部版本与更新记录](https://github.com/1770850844-alt/layoutgo/releases)
 
 首次使用 AI 时，点击 `AI 设置`，选择服务商或自定义端点，填入 Base URL、模型名和自己的 API Key。

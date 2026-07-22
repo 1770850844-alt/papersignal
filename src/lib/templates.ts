@@ -1,42 +1,46 @@
-import type { TemplateId } from './types';
+import type { TemplateId, WechatTemplateId, XhsTemplateId } from './types';
 
-export interface Template {
-  id: TemplateId;
+export interface WechatTemplate {
+  id: WechatTemplateId;
   index: string;
   title: string;
   description: string;
   content: string;
 }
 
-export const templates: Template[] = [
-  {
-    id: 'editorial', index: '01', title: '编辑室长文', description: '沉浸阅读 · 深度文章',
-    content: '<p class="editor-kicker">ISSUE 08 · SLOW LIVING</p><h2>留一点空白<br />给真正重要的事</h2><p class="editor-lead">在速度被不断催促的日子里，慢下来不是退后。它更像一扇被推开的窗，让我们重新听见生活的底噪。</p><figure><img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1200&q=85" alt="光线穿过安静的室内" /><figcaption>光线会记得每一次停留。</figcaption></figure><p>我们习惯把一天塞得很满，仿佛清单上的勾选越多，时间就越有价值。但有些东西，偏偏要从缝隙里长出来。</p><blockquote>“留白不是空无，而是让感受有地方抵达。”</blockquote><p>于是今天，试着为自己关掉几条提醒。把注意力交还给窗外、杯中的热气，和正在慢慢发生的你。</p>'
-  },
-  {
-    id: 'postcard', index: '02', title: '城市明信片', description: '图文笔记 · 生活方式',
-    content: '<p class="editor-kicker">POSTCARD FROM · XIAMEN</p><h2>把傍晚<br />寄回给自己</h2><p class="editor-lead">沿着海堤慢慢走，风把城市的声音吹成很远的背景。</p><figure><img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1200&q=85" alt="城市的黄昏" /><figcaption>THURSDAY / 18:47</figcaption></figure><p>我喜欢旅行里那些没有被安排的片刻。一杯冰饮、一家陌生的小店，或者只是停下来看看路口的人群。</p><blockquote>“生活不必总是抵达，也可以绕一点路。”</blockquote><p>把今天的风装进口袋，等下一个忙碌的日子再打开。</p>'
-  },
-  {
-    id: 'film', index: '03', title: '胶片日记', description: '旅行记录 · 叙事留白',
-    content: '<p class="editor-kicker">ROLL 36 · 2026</p><h2>一卷没拍完的<br />海边胶片</h2><p class="editor-lead">海浪把傍晚推向岸边，天空的蓝色正在显影。</p><figure><img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=85" alt="傍晚的海岸" /><figcaption>FRAME 18 / LIGHT LEAK</figcaption></figure><p>我们没有说很多话。脚印被潮水轻轻擦掉，像是替这一天留住了一个无人知晓的结尾。</p><blockquote>“有些风景，适合不带滤镜地记住。”</blockquote><p>后来冲洗照片时才发现，那天的光比记忆里更亮一点。</p>'
-  },
-  {
-    id: 'quote', index: '04', title: '琥珀金句', description: '一句观点 · 分享引言',
-    content: '<p class="editor-kicker">ONE THOUGHT / 04</p><h2>真正的效率，<br />是给重要的事<br />留出完整时间。</h2><blockquote>“专注不是做更多，而是愿意放下不重要的。”</blockquote><p class="card-signoff">LAYOUTGO / KEEP THIS</p>'
-  },
-  {
-    id: 'checklist', index: '05', title: '微小清单', description: '实用方法 · 收藏笔记',
-    content: '<p class="editor-kicker">A SMALL RESET</p><h2>今天，只做<br />三件小事</h2><ul class="check-list"><li><strong>01</strong> 留十分钟给不带目的的散步</li><li><strong>02</strong> 把一个消息延后半小时回复</li><li><strong>03</strong> 写下一件刚刚发生的好事</li></ul><p>不需要把生活变成项目管理。只要从一件很小的事开始，重新把自己接回来。</p>'
-  },
-  {
-    id: 'contrast', index: '06', title: '观点对照', description: '反差表达 · 知识拆解',
-    content: '<p class="editor-kicker">SHIFT THE FRAME</p><h2>你以为的自律，<br />和真正的自律</h2><div class="compare-grid"><p><b>NOT THIS</b>把每一分钟都排满</p><p><b>BUT THIS</b>把精力用在真正重要的地方</p></div><blockquote>“稳定不是一直用力，而是知道何时收回力气。”</blockquote><p class="card-signoff">A BETTER WAY TO WORK</p>'
-  },
-  {
-    id: 'reading', index: '07', title: '阅读摘录', description: '书单分享 · 灵感记录',
-    content: '<p class="editor-kicker">READING NOTE · 18</p><h2>那些让我慢下来读的句子</h2><figure><img src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=1200&q=85" alt="书架" /><figcaption>READ SLOWLY / KEEP THE PAGE OPEN</figcaption></figure><blockquote>“阅读并不急着给出结论，它只是把世界放在你手里。”</blockquote><p>有些书不需要一口气读完。停在一句话旁边，等它和你的生活发生一点联系。</p><p class="card-signoff">本周正在读：关于时间与注意力</p>'
-  }
+export interface XhsTemplate {
+  id: XhsTemplateId;
+  index: string;
+  title: string;
+  description: string;
+}
+
+export const wechatTemplates: WechatTemplate[] = [
+  { id: 'w-journal', index: '01', title: '叙事长文', description: '人物现场 · 沉浸阅读', content: '<h2>把重要的事，讲得安静一些</h2><p>适合有观点、有情绪，也愿意把话说完整的长文章。</p><blockquote>留白不是空白，而是让读者把自己的经验放进来。</blockquote><h3>从一个具体瞬间开始</h3><p>先把场景讲清楚，再慢慢给出你的观察与判断。</p>' },
+  { id: 'w-blueprint', index: '02', title: '知识拆解', description: '方法路径 · 分层说明', content: '<h2>把复杂问题，拆成读得懂的路径</h2><p>适合教程、知识解释与工作方法。</p><h3>先定义问题</h3><p>告诉读者这篇文章要解决什么，再交代下一步。</p><blockquote>真正清晰的表达，会让行动自然发生。</blockquote>' },
+  { id: 'w-brief', index: '03', title: '行业简报', description: '关键信息 · 结论优先', content: '<h2>一份值得读完的简报</h2><p>把本周最重要的信息留给真正需要的人。</p><h3>关键变化</h3><p>从细节、趋势和判断三个层次组织信息。</p><h3>下一步</h3><p>给出明确但不过度承诺的行动建议。</p>' },
+  { id: 'w-letterpress', index: '04', title: '杂志专栏', description: '编辑笔记 · 文字质感', content: '<h2>那些值得被写下来的小发现</h2><p>适合品牌随笔、创作记录和具有个人视角的内容。</p><blockquote>把日常看得认真一点，灵感才会出现。</blockquote><p>用简洁段落留下思考，不必急着得出结论。</p>' },
+  { id: 'w-review', index: '05', title: '复盘报告', description: '项目总结 · 表格信息', content: '<h2>一次复盘，把经验带到下一次</h2><p>适合项目复盘、业务总结与团队共识。</p><table><thead><tr><th>观察</th><th>判断</th><th>行动</th></tr></thead><tbody><tr><td>反馈集中</td><td>问题更具体</td><td>优先处理</td></tr></tbody></table><blockquote>复盘的价值，是让下一次少走一点弯路。</blockquote>' },
+  { id: 'w-weekend', index: '06', title: '图文手记', description: '生活方式 · 图片叙事', content: '<h2>给周末留一点不被安排的时间</h2><p>适合生活观察、旅行片段和轻盈的品牌内容。</p><figure><img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1200&q=85" alt="自然光下的日常" /><figcaption>记录那些不必赶路的时刻</figcaption></figure><p>有些感受，要慢一点才会变得具体。</p>' },
+  { id: 'w-dialogue', index: '07', title: '问答指南', description: 'FAQ 结构 · 即看即用', content: '<h2>关于这件事，先回答三个问题</h2><h3>从哪里开始？</h3><p>从一个具体的问题开始，不必一次解释全部。</p><h3>怎样判断有效？</h3><p>看它是否减少了真实的阻力。</p><h3>接下来做什么？</h3><p>选择一个今天就能完成的动作。</p>' },
+  { id: 'w-product', index: '08', title: '版本日志', description: '产品更新 · 清爽专业', content: '<h2>这次更新，让创作更少来回</h2><p>适合产品发布、功能说明和版本更新。</p><h3>更新了什么</h3><ul><li>把高频操作放回内容附近</li><li>让预览更接近真实阅读页</li><li>减少重复调整的时间</li></ul><p>工具应该让注意力回到表达本身。</p>' },
+  { id: 'w-insight', index: '09', title: '观点特写', description: '一条判断 · 递进论述', content: '<h2>一个值得停下来想想的观点</h2><blockquote>好的判断，不是更快地给出答案，而是知道什么值得继续追问。</blockquote><p>适合短观点、演讲摘录和品牌主张。</p><h3>为什么重要</h3><p>把观点放回具体情境，读者才知道它如何影响自己的选择。</p>' },
+  { id: 'w-brand', index: '10', title: '品牌年表', description: '真实节点 · 价值叙事', content: '<h2>把一件小事，做成长期的相信</h2><p>适合品牌起源、人物故事与价值表达。</p><h3>从哪里开始</h3><p>先讲一个真实的出发点，而不是一串口号。</p><blockquote>品牌感不是被设计出来的，是被一次次兑现出来的。</blockquote>' }
 ];
 
-export const getTemplate = (id: TemplateId) => templates.find((template) => template.id === id) ?? templates[0];
+export const xhsTemplates: XhsTemplate[] = [
+  { id: 'xhs-poster', index: '01', title: '强标题封面', description: '结论先行 · 适合首图' },
+  { id: 'xhs-notebook', index: '02', title: '清单手账', description: '编号步骤 · 收藏干货' },
+  { id: 'xhs-magazine', index: '03', title: '杂志内页', description: '编辑网格 · 专题表达' },
+  { id: 'xhs-soda', index: '04', title: '多巴胺步骤', description: '轻快节奏 · 易读教程' },
+  { id: 'xhs-ink', index: '05', title: '黑金观点', description: '一句判断 · 情绪张力' },
+  { id: 'xhs-mist', index: '06', title: '日记留白', description: '生活片段 · 慢叙事' },
+  { id: 'xhs-data', index: '07', title: '结论对比', description: '信息卡片 · 结构清楚' },
+  { id: 'xhs-study', index: '08', title: '课程笔记', description: '重点标记 · 知识整理' },
+  { id: 'xhs-collage', index: '09', title: '拼贴灵感', description: '收集感 · 创作记录' },
+  { id: 'xhs-chat', index: '10', title: '对话共鸣', description: '聊天节奏 · 观点互动' },
+  { id: 'xhs-minimal', index: '11', title: '极简专业', description: '留白构图 · 商务内容' },
+  { id: 'xhs-warm', index: '12', title: '暖调日签', description: '日签卡面 · 情绪收束' }
+];
+
+export const getWechatTemplate = (id: TemplateId): WechatTemplate => wechatTemplates.find((template) => template.id === id) ?? wechatTemplates[0];
