@@ -22,6 +22,25 @@ export interface AppSettings {
   hasApiKey: boolean;
 }
 
+export type AiTestStatus = 'untested' | 'success' | 'failed';
+
+export interface AiService {
+  id: string;
+  providerId: string;
+  name: string;
+  baseUrl: string;
+  model: string;
+  createdAt: string;
+  lastTestedAt?: string;
+  lastTestStatus: AiTestStatus;
+  lastTestMessage?: string;
+}
+
+export interface AiServiceState {
+  services: AiService[];
+  activeServiceId: string | null;
+}
+
 export interface Card {
   id: string;
   index: number;

@@ -1,8 +1,8 @@
 [package]
 name = "papersignal"
-version = "0.1.4"
-description = "Local-first content studio for WeChat and Xiaohongshu"
-authors = ["PaperSignal"]
+version = "0.1.5"
+description = "LayoutGo local-first content studio for WeChat and Xiaohongshu"
+authors = ["LayoutGo"]
 edition = "2021"
 
 [lib]

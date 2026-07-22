@@ -23,7 +23,7 @@ export const templates: Template[] = [
   },
   {
     id: 'quote', index: '04', title: '琥珀金句', description: '一句观点 · 分享引言',
-    content: '<p class="editor-kicker">ONE THOUGHT / 04</p><h2>真正的效率，<br />是给重要的事<br />留出完整时间。</h2><blockquote>“专注不是做更多，而是愿意放下不重要的。”</blockquote><p class="card-signoff">PAPERSIGNAL / KEEP THIS</p>'
+    content: '<p class="editor-kicker">ONE THOUGHT / 04</p><h2>真正的效率，<br />是给重要的事<br />留出完整时间。</h2><blockquote>“专注不是做更多，而是愿意放下不重要的。”</blockquote><p class="card-signoff">LAYOUTGO / KEEP THIS</p>'
   },
   {
     id: 'checklist', index: '05', title: '微小清单', description: '实用方法 · 收藏笔记',

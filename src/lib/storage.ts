@@ -1,10 +1,12 @@
-import type { Brand, Draft } from './types';
+import type { AiServiceState, Brand, Draft } from './types';
 import { isDesktop } from './desktop';
 
 const KEY = 'papersignal-web-state';
 
 interface LocalState { drafts: Draft[]; brand: Brand; }
 const defaultBrand: Brand = { name: 'LayoutGo', accent: '#3152A2', font: 'serif' };
+const aiServicesKey = 'layoutgo-ai-services';
+const legacyAiConfigKey = 'layoutgo-ai-config';
 
 function readWeb(): LocalState {
   try {
@@ -14,6 +16,22 @@ function readWeb(): LocalState {
 }
 
 function writeWeb(next: LocalState) { localStorage.setItem(KEY, JSON.stringify(next)); }
+
+function readAiServices(): AiServiceState {
+  try {
+    const stored = localStorage.getItem(aiServicesKey);
+    if (stored) return JSON.parse(stored) as AiServiceState;
+    const legacy = localStorage.getItem(legacyAiConfigKey);
+    if (!legacy) return { services: [], activeServiceId: null };
+    const parsed = JSON.parse(legacy) as { providerId: string; baseUrl: string; model: string };
+    return {
+      services: [{ id: parsed.providerId, providerId: parsed.providerId, name: '已迁移的 AI 服务', baseUrl: parsed.baseUrl, model: parsed.model, createdAt: new Date().toISOString(), lastTestStatus: 'untested' }],
+      activeServiceId: parsed.providerId
+    };
+  } catch { return { services: [], activeServiceId: null }; }
+}
+
+function writeAiServices(next: AiServiceState) { localStorage.setItem(aiServicesKey, JSON.stringify(next)); }
 
 async function db() {
   const { default: Database } = await import('@tauri-apps/plugin-sql');
@@ -57,4 +75,20 @@ export async function saveBrand(brand: Brand): Promise<void> {
   if (!isDesktop()) { const state = readWeb(); writeWeb({ ...state, brand }); return; }
   const database = await db();
   await database.execute('INSERT INTO settings (key, value) VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value = excluded.value', ['brand', JSON.stringify(brand)]);
+}
+
+export async function loadAiServices(): Promise<AiServiceState> {
+  if (!isDesktop()) return readAiServices();
+  const database = await db();
+  const rows = await database.select<Array<{ value: string }>>('SELECT value FROM settings WHERE key = ?', ['ai_services']);
+  if (rows[0]) return JSON.parse(rows[0].value) as AiServiceState;
+  const legacy = readAiServices();
+  if (legacy.services.length) await saveAiServices(legacy);
+  return legacy;
+}
+
+export async function saveAiServices(state: AiServiceState): Promise<void> {
+  if (!isDesktop()) { writeAiServices(state); return; }
+  const database = await db();
+  await database.execute('INSERT INTO settings (key, value) VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value = excluded.value', ['ai_services', JSON.stringify(state)]);
 }
