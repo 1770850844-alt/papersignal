@@ -1,62 +1,61 @@
-# PaperSignal
+# LayoutGo
 
-本地优先的公众号和小红书内容工作台。编辑、模板、品牌 VI、预览和导出都可离线使用；AI 使用用户自己的 API Key，不经过 PaperSignal 服务器。
+LayoutGo 是一款本地优先的公众号排版与小红书制卡桌面工具。文章编辑、模板、品牌素材、预览和草稿都保存在本机；使用 AI 时由用户自行配置 API Key，内容不会经过 LayoutGo 服务器。
 
-## 功能
+## 核心功能
 
-- 7 套公众号文章模板与轻量富文本编辑器
-- 手机壳内的公众号 / 小红书滚动预览
-- 长文转换小红书卡片、笔记扩写公众号文章
-- 小红书 SVG 图集打包下载、Emoji 正文复制
-- 公众号兼容富文本复制、干净 HTML 导出
-- 本机 SQLite 草稿与品牌 VI
-- OpenAI、智谱、Kimi、DeepSeek 预设，以及任意 OpenAI Chat Completions 兼容端点
-- API Key 保存到 macOS Keychain / Windows Credential Manager
+- **公众号排版**：10 套具有不同内容结构的文章模板，配合富文本编辑、真实公众号手机预览、干净 HTML 导出与公众号正文复制。
+- **小红书制卡**：12 套不同版式的知识卡片模板，支持独立编辑、真实小红书手机预览、3:4 图集导出与防裁剪查看。
+- **AI 内容转换**：将长文拆解为小红书卡片，或把小红书笔记扩写为公众号文章；内置稳定的输出结构与平台语气提示词。
+- **AI 排版与 AI 制卡**：基于当前编辑内容生成适合公众号或小红书的成稿，再由用户继续编辑。
+- **AI 服务配置**：支持 OpenAI、智谱、Kimi、DeepSeek 及任何兼容 OpenAI Chat Completions 的服务；可保存、选择、删除并测试服务连通性。
+- **本地草稿与品牌库**：公众号文章与小红书制卡草稿分别保存，可再次打开、编辑或删除；支持品牌色、字体与 Logo 的本地配置。
+- **本地安全存储**：草稿数据保存于本机 SQLite；API Key 使用 macOS Keychain 或 Windows Credential Manager 保存。
 
-## 使用桌面版
+## 下载桌面版
 
-直接下载安装包：
+当前稳定版本：`v0.1.6`
 
-- [下载 macOS（Apple Silicon / M 系列）版 LayoutGo 0.1.6 `.dmg`](https://github.com/1770850844-alt/layoutgo/releases/download/app-v0.1.6/LayoutGo_0.1.6_aarch64.dmg)
-- [下载 Windows 64 位版 LayoutGo 0.1.6 `.exe`](https://github.com/1770850844-alt/layoutgo/releases/download/app-v0.1.6/LayoutGo_0.1.6_x64-setup.exe)
+- [下载 macOS（Apple Silicon / M 系列）`.dmg`](https://github.com/1770850844-alt/layoutgo/releases/download/app-v0.1.6/LayoutGo_0.1.6_aarch64.dmg)
+- [下载 Windows 64 位 `.exe`](https://github.com/1770850844-alt/layoutgo/releases/download/app-v0.1.6/LayoutGo_0.1.6_x64-setup.exe)
 - [查看全部版本与更新记录](https://github.com/1770850844-alt/layoutgo/releases)
 
-首次使用 AI 时，点击 `AI 设置`，选择服务商或自定义端点，填入 Base URL、模型名和自己的 API Key。
+首次使用 AI：进入 **AI 服务配置**，选择服务商或自定义端点，填写 Base URL、模型名称和自己的 API Key，然后运行连通性测试并保存。
 
-不会自动发布到微信公众号或小红书：公众号使用“复制公众号正文”后粘贴到后台；小红书使用“下载图集”和“复制正文”后手动上传发布。
+LayoutGo 不会自动发布到微信公众号或小红书。公众号内容使用“复制公众号正文”后粘贴到后台；小红书内容下载图集后手动上传发布。
 
 ## 本地开发
 
-前置条件：Node.js 22+、Rust stable、macOS 需 Xcode Command Line Tools；Windows 需 WebView2 和 MSVC Build Tools。
+前置条件：Node.js 22+、Rust stable。macOS 需要 Xcode Command Line Tools；Windows 需要 WebView2 与 MSVC Build Tools。
 
 ```bash
 npm install
 npm run desktop:dev
 ```
 
-只运行网页界面：
+仅运行网页界面：
 
 ```bash
 npm run dev
 ```
 
-生产构建：
+构建当前系统的桌面安装包：
 
 ```bash
 npm run desktop:build
 ```
 
-## 发布新版
+## 发布新版本
 
-更新 `package.json` 与 `src-tauri/tauri.conf.json` 的版本号，提交并推送标签：
+同步更新 `package.json`、`package-lock.json`、`src-tauri/Cargo.toml` 和 `src-tauri/tauri.conf.json` 中的版本号，完成校验后提交并推送新标签。例如发布 `0.1.7`：
 
 ```bash
-git tag app-v0.1.1
-git push origin app-v0.1.1
+git tag -a app-v0.1.7 -m "LayoutGo v0.1.7"
+git push origin app-v0.1.7
 ```
 
-GitHub Actions 会自动构建 macOS `.dmg` 和 Windows `.exe`，上传到对应的 GitHub Release。首次发布前可以在 GitHub 仓库的 Actions 页面确认 workflow 有 `contents: write` 权限。
+GitHub Actions 会自动构建 macOS `.dmg` 和 Windows `.exe`，并上传到对应的 GitHub Release。
 
-## 安全与兼容性
+## 隐私与兼容性
 
-桌面端通过 Rust 层代理 AI 请求，前端没有持久化 API Key。服务商需要支持 OpenAI 风格的 `/chat/completions` 接口；如果某个供应商的端点、鉴权或返回格式不同，请使用它提供的兼容地址，或在后续版本增加该服务商适配器。
+AI 请求由桌面端 Rust 层发起，前端不会持久化 API Key。自定义服务需要提供 OpenAI 风格的 `/chat/completions` 接口；若服务商使用不同的鉴权方式或返回格式，请填写其兼容地址。
