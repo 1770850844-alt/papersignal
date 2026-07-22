@@ -58,4 +58,10 @@ GitHub Actions 会自动构建 macOS `.dmg` 和 Windows `.exe`，并上传到对
 
 ## 隐私与兼容性
 
+### macOS 首次打开
+
+当前 macOS 安装包尚未完成 Apple 公证。首次打开 LayoutGo 时，macOS 可能提示“无法验证开发者”或将软件标记为无效。这是系统 Gatekeeper 的安全确认，并不代表安装包损坏。
+
+请将 LayoutGo 拖入“应用程序”文件夹后，前往 **系统设置 > 隐私与安全性**，在 LayoutGo 的拦截提示旁点击 **仍要打开**，再确认打开即可。完成一次确认后，后续可正常启动。
+
 AI 请求由桌面端 Rust 层发起，前端不会持久化 API Key。自定义服务需要提供 OpenAI 风格的 `/chat/completions` 接口；若服务商使用不同的鉴权方式或返回格式，请填写其兼容地址。
