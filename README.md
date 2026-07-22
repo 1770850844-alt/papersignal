@@ -15,7 +15,13 @@
 
 ## 使用桌面版
 
-从 GitHub Releases 下载对应系统的安装包：macOS 使用 `.dmg`，Windows 使用 `.exe`。首次使用 AI 时，点击 `AI 设置`，选择服务商或自定义端点，填入 Base URL、模型名和自己的 API Key。
+直接下载安装包：
+
+- [下载 macOS（Apple Silicon / M 系列）版 LayoutGo 0.1.3 `.dmg`](https://github.com/1770850844-alt/layoutgo/releases/download/app-v0.1.3/LayoutGo_0.1.3_aarch64.dmg)
+- [下载 Windows 64 位版 LayoutGo 0.1.3 `.exe`](https://github.com/1770850844-alt/layoutgo/releases/download/app-v0.1.3/LayoutGo_0.1.3_x64-setup.exe)
+- [查看全部版本与更新记录](https://github.com/1770850844-alt/layoutgo/releases)
+
+首次使用 AI 时，点击 `AI 设置`，选择服务商或自定义端点，填入 Base URL、模型名和自己的 API Key。
 
 不会自动发布到微信公众号或小红书：公众号使用“复制公众号正文”后粘贴到后台；小红书使用“下载图集”和“复制正文”后手动上传发布。
 
